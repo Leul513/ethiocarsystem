@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database</title>
+</head>
+<body>
+
+<h2>Database Records</h2>
+
+<table border="1">
+<tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Car Number</th>
+    <th>Car Name</th>
+</tr>
+
+{% for row in data %}
+<tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[7] }}</td>
+    <td>{{ row[8] }}</td>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

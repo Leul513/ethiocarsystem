@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Server Page</title>
+</head>
+<body>
+
+<h2>Server Dashboard</h2>
+
+<!-- BOX 1 -->
+<div style="border:1px solid black; padding:10px;">
+    <h3>Clients</h3>
+    <ul id="clients"></ul>
+</div>
+
+<br>
+
+<!-- BOX 2 -->
+<div style="border:1px solid black; padding:10px;">
+    <h3>Send Message</h3>
+    <input id="client_id" placeholder="Client ID"><br>
+    <input id="message" placeholder="Message"><br>
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+function loadClients() {
+    fetch('/get_clients')
+    .then(res => res.json())
+    .then(data => {
+        let list = document.getElementById("clients");
+        list.innerHTML = "";
+
+        data.forEach(c => {
+            let li = document.createElement("li");
+            li.innerHTML = `
+                ID:${c.id} | ${c.car_number} - ${c.car_name}
+                <br>
+                Status: ${c.status}
+                <br>
+                <iframe width="250" height="150"
+                src="https://maps.google.com/maps?q=${c.lat},${c.lon}&output=embed"></iframe>
+            `;
+            list.appendChild(li);
+        });
+    });
+}
+
+function sendMessage() {
+    fetch('/send_message', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            id: document.getElementById("client_id").value,
+            message: document.getElementById("message").value
+        })
+    })
+    .then(res => res.json())
+    .then(data => alert(data.status));
+}
+
+setInterval(loadClients, 3000);
+</script>
+
+</body>
+</html>

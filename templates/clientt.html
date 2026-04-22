@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Client Page</h2>
+
+<input id="car_number" placeholder="Car Number"><br>
+<input id="car_name" placeholder="Car Name"><br>
+
+<button onclick="sendLocation()">Send Location</button>
+
+<h3 id="status"></h3>
+
+<script>
+let clientId = null;
+
+function sendLocation() {
+    let carNumber = document.getElementById("car_number").value;
+    let carName = document.getElementById("car_name").value;
+
+    navigator.geolocation.getCurrentPosition(pos => {
+        fetch('/send_location', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                car_number: carNumber,
+                car_name: carName,
+                lat: pos.coords.latitude,
+                lon: pos.coords.longitude
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            clientId = data.id;
+            document.getElementById("status").innerText = data.status;
+        });
+    });
+}
+
+// CHECK MESSAGE
+setInterval(() => {
+    if (!clientId) return;
+
+    fetch('/get_message/' + clientId)
+    .then(res => res.json())
+    .then(data => {
+        if (data.message) {
+            document.getElementById("status").innerText =
+                data.status + ": " + data.message;
+        }
+    });
+}, 3000);
+</script>
+
+</body>
+</html>

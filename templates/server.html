@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Server</title>
+<link rel="stylesheet" href="/static/client.css">
+</head>
+<body>
+
+<div class="box">
+<h2>Server Dashboard</h2>
+
+<table>
+<tr>
+<th>Car Name</th>
+<th>Car Number</th>
+<th>Action</th>
+</tr>
+<tr>
+<td id="car_name"></td>
+<td id="car_number"></td>
+<td><button id="btn">accept</button></td>
+</tr>
+</table>
+</div>
+
+<script>
+const btn = document.getElementById("btn");
+
+btn.onclick = () => {
+fetch('/action', {
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body: JSON.stringify({user:"server"})
+}).then(res=>res.json())
+.then(data=>{
+btn.innerText = data.server_btn;
+});
+};
+
+setInterval(()=>{
+fetch('/state')
+.then(res=>res.json())
+.then(data=>{
+btn.innerText = data.server_btn;
+document.getElementById("car_name").innerText = data.car_name;
+document.getElementById("car_number").innerText = data.car_number;
+});
+},1000);
+</script>
+
+<style>
+    body {
+font-family: Arial;
+background: #f2f2f2;
+text-align: center;
+}
+
+.box {
+background: white;
+padding: 20px;
+margin: 50px auto;
+width: 300px;
+border-radius: 10px;
+}
+
+.profile {
+width:100px;
+border-radius:50%;
+}
+
+input {
+display:block;
+margin:10px auto;
+padding:5px;
+}
+
+button {
+padding:10px 20px;
+cursor:pointer;
+}
+
+table {
+margin:auto;
+border-collapse: collapse;
+}
+
+th, td {
+border:1px solid #ccc;
+padding:10px;
+}
+
+</style>
+</body>
+</html>

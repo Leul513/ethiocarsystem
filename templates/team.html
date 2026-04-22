@@ -1,0 +1,30 @@
+<!-- templates/team.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Team Profile</title>
+<style>
+body { font-family: Arial; text-align:center; background:#f2f2f2; }
+.box { background:white; padding:20px; margin:50px auto; width:300px; border-radius:10px; }
+img { width:120px; height:120px; border-radius:50%; }
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>Team Profile</h2>
+
+{% if team[4] %}
+<img src="/static/uploads/{{team[4]}}">
+{% endif %}
+
+<p><b>Name:</b> {{team[1]}}</p>
+<p><b>Members:</b> {{team[2]}}</p>
+<p><b>Team ID:</b> {{team[3]}}</p>
+<p><b>Date:</b> {{team[5]}}</p>
+
+<a href="/database">Back</a>
+</div>
+
+</body>
+</html>

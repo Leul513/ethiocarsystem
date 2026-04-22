@@ -1,0 +1,46 @@
+<!-- templates/databasee.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Database</title>
+<style>
+body { font-family: Arial; text-align:center; background:#f2f2f2; }
+table { margin:auto; border-collapse: collapse; width:90%; background:white; }
+th, td { border:1px solid #ccc; padding:10px; }
+img { width:50px; height:50px; border-radius:50%; }
+</style>
+</head>
+<body>
+
+<h2>Teams</h2>
+<a href="/">Back</a>
+
+<table>
+<tr>
+<th>ID</th>
+<th>Image</th>
+<th>Name</th>
+<th>Members</th>
+<th>Team ID</th>
+<th>Profile</th>
+</tr>
+
+{% for row in data %}
+<tr>
+<td>{{row[0]}}</td>
+<td>
+{% if row[4] %}
+<img src="/static/uploads/{{row[4]}}">
+{% endif %}
+</td>
+<td>{{row[1]}}</td>
+<td>{{row[2]}}</td>
+<td>{{row[3]}}</td>
+<td><a href="/team/{{row[0]}}">View</a></td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

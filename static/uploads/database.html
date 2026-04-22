@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Database</title>
+<link rel="stylesheet" href="/client/style.css">
+</head>
+<body>
+
+<h2>Database Logs</h2>
+
+<table>
+<tr>
+<th>ID</th>
+<th>Client Time</th>
+<th>Server Time</th>
+<th>Server Name</th>
+<th>Car Name</th>
+<th>Car Number</th>
+</tr>
+
+{% for row in data %}
+<tr>
+<td>{{row[0]}}</td>
+<td>{{row[1]}}</td>
+<td>{{row[2]}}</td>
+<td>{{row[3]}}</td>
+<td>{{row[4]}}</td>
+<td>{{row[5]}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<style>
+    body {
+font-family: Arial;
+background: #f2f2f2;
+text-align: center;
+}
+
+.box {
+background: white;
+padding: 20px;
+margin: 50px auto;
+width: 300px;
+border-radius: 10px;
+}
+
+.profile {
+width:100px;
+border-radius:50%;
+}
+
+input {
+display:block;
+margin:10px auto;
+padding:5px;
+}
+
+button {
+padding:10px 20px;
+cursor:pointer;
+}
+
+table {
+margin:auto;
+border-collapse: collapse;
+}
+
+th, td {
+border:1px solid #ccc;
+padding:10px;
+}
+
+</style>
+
+</body>
+</html>

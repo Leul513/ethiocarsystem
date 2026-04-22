@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Client</title>
+<link rel="stylesheet" href="/static/client.css">
+</head>
+<body>
+
+<div class="box">
+<img src="profile.jpg" class="profile">
+<h2>Client User</h2>
+
+<input id="car_name" placeholder="Car Name">
+<input id="car_number" placeholder="Car Number">
+
+<button id="btn">start</button>
+</div>
+
+<style>
+    body {
+font-family: Arial;
+background: #f2f2f2;
+text-align: center;
+}
+
+.box {
+background: white;
+padding: 20px;
+margin: 50px auto;
+width: 300px;
+border-radius: 10px;
+}
+
+.profile {
+width:100px;
+border-radius:50%;
+}
+
+input {
+display:block;
+margin:10px auto;
+padding:5px;
+}
+
+button {
+padding:10px 20px;
+cursor:pointer;
+}
+
+table {
+margin:auto;
+border-collapse: collapse;
+}
+
+th, td {
+border:1px solid #ccc;
+padding:10px;
+}
+
+</style>
+
+<script>
+const btn = document.getElementById("btn");
+
+btn.onclick = () => {
+fetch('/action', {
+method: 'POST',
+headers: {'Content-Type':'application/json'},
+body: JSON.stringify({
+user: "client",
+car_name: document.getElementById("car_name").value,
+car_number: document.getElementById("car_number").value
+})
+}).then(res=>res.json())
+.then(data=>{
+btn.innerText = data.client_btn;
+});
+};
+
+setInterval(()=>{
+fetch('/state')
+.then(res=>res.json())
+.then(data=>{
+btn.innerText = data.client_btn;
+});
+},1000);
+</script>
+
+</body>
+</html>
